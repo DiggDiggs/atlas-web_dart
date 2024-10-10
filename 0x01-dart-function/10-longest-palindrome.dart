@@ -16,8 +16,8 @@ String longestPalindrome(String s) {
   for (int i = 0; i < s.length; i++) {
     for (int j = i + 3; j <= s.length; j++) {
       String substring = s.substring(i, j);
-      if (isPalindrome(substring) && substring.length >= 3) {
-        if (substring.length > longestPal.length) {
+      if (isPalindrome(substring)) {
+        if (longestPal == "none" || substring.length > longestPal.length) {
           longestPal = substring;
         }
       }
