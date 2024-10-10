@@ -1,6 +1,8 @@
 void outer(String name, String id) {
   String inner() {
-    return 'Hello Agent B.$name your id is $id';
+    // Split the name to get the first word
+    String firstName = name.split(' ')[0];
+    return 'Hello Agent B.$firstName your id is $id';
   }
 
   print(inner());
