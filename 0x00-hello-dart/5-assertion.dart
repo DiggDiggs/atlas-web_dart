@@ -1,8 +1,5 @@
 void main(List<String> args) {
   int num = int.parse(args[0]);
-  if (num >= 80) {
-    print('You Passed');
-  } else {
-    print('You Did Not Pass');
-  }
+  assert(num >= 80, 'The score must be bigger or equal to 80');
+  print('You Passed');
 }
