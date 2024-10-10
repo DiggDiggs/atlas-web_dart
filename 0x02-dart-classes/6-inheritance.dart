@@ -38,8 +38,6 @@ class User {
       'name': name,
       'age': age,
       'height': height,
-      'user_password': _userPassword
-          .toString(), // or you can omit this if not needed in JSON
     };
   }
 
@@ -49,11 +47,19 @@ class User {
       name: userJson['name'],
       age: userJson['age'],
       height: userJson['height'],
-      user_password: userJson['user_password'] ?? '', // using null coalescing
+      user_password: userJson['user_password'] ?? '',
     );
   }
 
   bool get userPasswordValid => _userPassword.isValid();
+
+  // Getter for user_password
+  String get user_password => _userPassword.toString();
+
+  // Setter for user_password
+  set user_password(String password) {
+    _userPassword = Password(password: password);
+  }
 
   @override
   String toString() {

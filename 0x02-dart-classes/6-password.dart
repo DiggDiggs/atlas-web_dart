@@ -25,10 +25,8 @@ void main() {
   print('\n');
   print('<===========Test2===========>:');
   print('\n');
-  djo.user_password =
-      "holberton98"; // Assuming you add a setter for user_password
-  youssef.user_password =
-      "AZERfghn6789"; // Assuming you add a setter for user_password
+  djo.user_password = "holberton98"; // This now works
+  youssef.user_password = "AZERfghn6789"; // This now works
   print(djo.toString());
   print(youssef.toString());
 }
