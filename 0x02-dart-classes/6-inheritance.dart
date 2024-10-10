@@ -15,6 +15,14 @@ class Password {
   String toString() {
     return 'Your Password is: $_password';
   }
+
+  // Getter for password
+  String get password => _password;
+
+  // Setter for password
+  set password(String newPassword) {
+    _password = newPassword;
+  }
 }
 
 class User {
@@ -22,16 +30,15 @@ class User {
   String name;
   int age;
   double height;
-  Password? userPassword;
+  Password _userPassword;
 
   User({
     required this.id,
     required this.name,
     required this.age,
     required this.height,
-    String? user_password,
-  }) : userPassword =
-            user_password != null ? Password(password: user_password) : null;
+    required String user_password,
+  }) : _userPassword = Password(password: user_password);
 
   Map<String, dynamic> toJson() {
     return {
@@ -39,22 +46,30 @@ class User {
       'name': name,
       'age': age,
       'height': height,
-      'user_password': userPassword?._password,
+      'user_password': _userPassword.password,
     };
   }
 
   static User fromJson(Map<dynamic, dynamic> userJson) {
     return User(
-      id: userJson['id'] ?? 0,
-      name: userJson['name'] ?? '',
-      age: userJson['age'] ?? 0,
-      height: userJson['height'] ?? 0.0,
-      user_password: userJson['user_password'] ?? null,
+      id: userJson['id'],
+      name: userJson['name'],
+      age: userJson['age'],
+      height: userJson['height'],
+      user_password: userJson['user_password'],
     );
   }
 
   @override
   String toString() {
-    return 'User(id : $id ,name: $name, age: $age, height: $height, Password: ${userPassword?.isValid() ?? false})';
+    return 'User(id : $id ,name: $name, age: $age, height: $height, Password: ${_userPassword.isValid()})';
+  }
+
+  // Getter for user_password
+  String get user_password => _userPassword.password;
+
+  // Setter for user_password
+  set user_password(String newPassword) {
+    _userPassword.password = newPassword;
   }
 }
