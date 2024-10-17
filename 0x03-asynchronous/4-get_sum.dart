@@ -1,5 +1,5 @@
 import 'dart:convert'; // For JSON decoding
-import '4-util.dart'; // Import utility functions
+import '4-util.dart';
 
 // Function to calculate the total price of items for a user
 Future<double> calculateTotal() async {
