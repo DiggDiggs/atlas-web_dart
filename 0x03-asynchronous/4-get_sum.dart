@@ -1,38 +1,32 @@
 import 'dart:convert'; // For JSON decoding
-import '4-util.dart';
+import '4-util.dart'; // Import utility functions
 
+// Function to calculate the total price of items for a user
 Future<double> calculateTotal() async {
   try {
-    // Fetch user data
+    // Step 1: Fetch the user data and extract the user ID
     String userData = await fetchUserData();
-    Map<String, dynamic> userMap = jsonDecode(userData);
-    String userId = userMap['id'];
+    Map<String, dynamic> user = jsonDecode(userData);
+    String userId = user['id'];
 
-    // Fetch user orders
+    // Step 2: Fetch the user orders based on user ID
     String ordersData = await fetchUserOrders(userId);
     List<dynamic> orders = jsonDecode(ordersData);
 
-    double totalPrice = 0;
-
-    // Check if orders are empty
-    if (orders == null || orders.isEmpty) {
-      return totalPrice; // Return 0 if no orders
+    // Step 3: Fetch the price of each product in the user's orders
+    double total = 0.0;
+    for (var item in orders) {
+      String priceData = await fetchProductPrice(item);
+      double price =
+          (jsonDecode(priceData) as num).toDouble(); // Safe type conversion
+      total += price;
     }
 
-    // Calculate total price of orders
-    for (var product in orders) {
-      String priceData = await fetchProductPrice(product);
-
-      // Decode the price data
-      double productPrice = double.parse(jsonDecode(priceData));
-      totalPrice += productPrice;
-    }
-
-    return totalPrice;
+    // Return the total price
+    return total;
   } catch (error) {
-    // Print the error for debugging
+    // If any error occurs, print the error for debugging and return -1.0
     print('Error occurred: $error');
-    // Handle any errors and return -1
-    return -1;
+    return -1.0;
   }
 }
